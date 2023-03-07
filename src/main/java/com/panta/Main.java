@@ -1,11 +1,11 @@
-package mojPaket;
+package com.panta;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.IOException;
-public class MainClass {
+public class Main {
 
     public static void main(String[] args) {
         BufferedReader reader;

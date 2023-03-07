@@ -1,4 +1,4 @@
-package mojPaket.dto;
+package com.panta.dto;
 
 public class Album {
     private int userId;
