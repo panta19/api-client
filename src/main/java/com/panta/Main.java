@@ -2,15 +2,13 @@ package com.panta;
 
 import com.panta.dto.Album;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
 
 public class Main {
     public static void testJackson( StringBuffer responseContent ) throws IOException {
@@ -19,10 +17,11 @@ public class Main {
         {
             ObjectMapper mapper = new ObjectMapper();
             Album[] albums = mapper.readValue(responseContent.toString(),  Album[].class );
-            for(int i=0; i<albums.length; i++)    //length is the property of the array
-            {
-                System.out.println("UserID: " + albums[i].getUserId() + " ID: " + albums[i].getId() + " Title: " + albums[i].getTitle());
-            }
+            Arrays.stream(albums).forEach(System.out::println);
+//            for(int i=0; i<albums.length; i++)    //length is the property of the array
+//            {
+//                System.out.println("UserID: " + albums[i].getUserId() + " ID: " + albums[i].getId() + " Title: " + albums[i].getTitle());
+//            }
         }
         catch(IOException ex)
         {
