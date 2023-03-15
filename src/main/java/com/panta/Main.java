@@ -30,10 +30,6 @@ public class Main {
         {
             ex.printStackTrace();
         }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
 
 
     }
@@ -48,10 +44,6 @@ public class Main {
            }
         }
         catch(IOException ex)
-        {
-            ex.printStackTrace();
-        }
-        catch(Exception ex)
         {
             ex.printStackTrace();
         }
@@ -91,8 +83,8 @@ public class Main {
                 }
                 // System.out.println(responseContent.toString());
 
-                //testJackson( responseContent );
-                testJacksonArray( responseContent );
+                testJackson( responseContent );
+                //testJacksonArray( responseContent );
 
             }
         } catch (IOException e) {
