@@ -1,19 +1,34 @@
 package com.panta;
 
 import com.panta.dto.Album;
+import okhttp3.Response;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
-
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Main {
+
+    public static void sendGetRequest(String url) throws IOException {
+        StringBuffer responseContent = new StringBuffer();
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url).build();
+        try (Response response = client.newCall(request).execute()) {
+            String responseBody = response.body().string();
+            responseContent.append(responseBody);
+            testJacksonArray( responseContent );
+            //System.out.println(responseBody);
+        }
+    }
     public static void testJackson( StringBuffer responseContent ) throws IOException {
 
         try
@@ -21,10 +36,6 @@ public class Main {
             ObjectMapper mapper = new ObjectMapper();
             Album[] albums = mapper.readValue(responseContent.toString(),  Album[].class );
             Arrays.stream(albums).forEach(System.out::println);
-//            for(int i=0; i<albums.length; i++)    //length is the property of the array
-//            {
-//                System.out.println("UserID: " + albums[i].getUserId() + " ID: " + albums[i].getId() + " Title: " + albums[i].getTitle());
-//            }
         }
         catch(IOException ex)
         {
@@ -83,8 +94,9 @@ public class Main {
                 }
                 // System.out.println(responseContent.toString());
 
-                testJackson( responseContent );
+                //testJackson( responseContent );
                 //testJacksonArray( responseContent );
+                sendGetRequest( "https://jsonplaceholder.typicode.com/albums" );
 
             }
         } catch (IOException e) {
